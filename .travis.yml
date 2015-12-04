@@ -13,7 +13,7 @@ matrix:
     - php: hhvm
 
 script:
- - bin/phpunit
+ - vendor/bin/phpunit
 
 before_script:
  - phpenv rehash > /dev/null
