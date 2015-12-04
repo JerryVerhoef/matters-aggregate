@@ -100,15 +100,10 @@ final class Repository
     private function getWriteableEventsFromAggregate($aggregateRoot)
     {
         $domainEvents = $aggregateRoot->extractRecordedEvents();
-        if ($domainEvents === []) {
-        }
 
         $eventsArray = [];
         foreach ($domainEvents as $event) {
-            $eventsArray[] = WritableEvent::newInstance(
-                get_class($event),
-                $this->eventSerializer->serialize($event)
-            );
+            $eventsArray[] = WritableEvent::newInstance(get_class($event), $this->eventSerializer->serialize($event));
         }
 
         return $eventsArray;
