@@ -29,4 +29,10 @@ final class None implements TransactionInterface
         // Doesn't need to do anything
         return null;
     }
+
+    public function rollback()
+    {
+        // doesn't need to do anything
+        return null;
+    }
 }

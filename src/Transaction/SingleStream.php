@@ -42,6 +42,11 @@ final class SingleStream implements TransactionInterface
         $this->resetTransaction();
     }
 
+    public function rollback()
+    {
+        $this->resetTransaction();
+    }
+
     private function resetTransaction()
     {
         $this->streamUri = '';
