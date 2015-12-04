@@ -8,7 +8,7 @@ include __DIR__ . '/01-persist-and-retrieve-aggregate/Project.php';
 $eventStore = new \EventStore\EventStore('192.168.99.100:2113');
 
 // Instantiate a factory with which we can retrieve Repositories for specific Aggregates
-$factory = new \PhpInPractice\Matters\Aggregate\RepositoryFactory($eventStore);
+$factory = new \PhpInPractice\Matters\Aggregate\EventStoreRepositoryFactory($eventStore);
 
 // Create the Repository for the Project aggregate
 $repository = $factory->create(Project::class);
