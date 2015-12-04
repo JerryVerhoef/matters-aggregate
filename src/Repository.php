@@ -43,15 +43,10 @@ final class Repository
      */
     public function persist($aggregateRoot)
     {
-        $eventsArray = $this->getWriteableEventsFromAggregate($aggregateRoot);
-
-        $streamUri  = $this->streamNameGenerator->generate(get_class($aggregateRoot), (string)$aggregateRoot->id());
-
-        if (! $this->transaction instanceof Transaction) {
-            $collection = new WritableEventCollection($eventsArray);
-            $this->eventstore->writeToStream($streamUri, $collection);
-        }
-
+        $this->transaction->push(
+            $this->streamNameGenerator->generate(get_class($aggregateRoot), (string)$aggregateRoot->id()),
+            $this->getWriteableEventsFromAggregate($aggregateRoot)
+        );
     }
 
     public function findById($uuid)
