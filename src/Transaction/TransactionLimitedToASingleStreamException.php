@@ -2,6 +2,6 @@
 
 namespace PhpInPractice\Matters\Aggregate\Transaction;
 
-class TransactionLimitedToASingleStreamException extends TransactionException
+final class TransactionLimitedToASingleStreamException extends TransactionException
 {
 }

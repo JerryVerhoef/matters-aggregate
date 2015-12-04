@@ -7,7 +7,7 @@ use EventStore\WritableEvent;
 use EventStore\WritableEventCollection;
 use PhpInPractice\Matters\Aggregate\Transaction as TransactionInterface;
 
-class SingleStream implements TransactionInterface
+final class SingleStream implements TransactionInterface
 {
     /** @var EventStoreInterface */
     private $eventstore;

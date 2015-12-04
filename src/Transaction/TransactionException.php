@@ -2,7 +2,7 @@
 
 namespace PhpInPractice\Matters\Aggregate\Transaction;
 
-class TransactionException extends \RuntimeException
+abstract class TransactionException extends \RuntimeException
 {
 
 }

@@ -6,7 +6,7 @@ use EventStore\EventStoreInterface;
 use EventStore\WritableEventCollection;
 use PhpInPractice\Matters\Aggregate\Transaction as TransactionInterface;
 
-class None implements TransactionInterface
+final class None implements TransactionInterface
 {
     /**
      * @var EventStoreInterface
