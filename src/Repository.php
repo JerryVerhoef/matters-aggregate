@@ -21,16 +21,21 @@ final class Repository
     /** @var EventSerializer */
     private $eventSerializer;
 
+    /** @var Transaction */
+    private $transaction;
+
     public function __construct(
         StreamNameGenerator $streamNameGenerator,
         EventSerializer $eventSerializer,
         EventStoreInterface $eventstore,
+        Transaction $transaction,
         $aggregateClassName
     ) {
         $this->eventstore          = $eventstore;
         $this->aggregateClassName  = $aggregateClassName;
         $this->streamNameGenerator = $streamNameGenerator;
         $this->eventSerializer     = $eventSerializer;
+        $this->transaction         = $transaction;
     }
 
     /**
@@ -38,11 +43,10 @@ final class Repository
      */
     public function persist($aggregateRoot)
     {
-        $eventsArray = $this->getWriteableEventsFromAggregate($aggregateRoot);
-
-        $collection = new WritableEventCollection($eventsArray);
-        $streamUri  = $this->streamNameGenerator->generate(get_class($aggregateRoot), (string)$aggregateRoot->id());
-        $this->eventstore->writeToStream($streamUri, $collection);
+        $this->transaction->push(
+            $this->streamNameGenerator->generate(get_class($aggregateRoot), (string)$aggregateRoot->id()),
+            $this->getWriteableEventsFromAggregate($aggregateRoot)
+        );
     }
 
     public function findById($uuid)
