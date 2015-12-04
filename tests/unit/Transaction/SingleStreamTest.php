@@ -41,7 +41,7 @@ class SingleStreamTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers ::flush
+     * @covers ::commit
      * @covers ::push
      */
     public function it_should_write_events_to_eventstore_on_flush()
