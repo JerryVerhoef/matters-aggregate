@@ -9,9 +9,7 @@ use PhpInPractice\Matters\Aggregate\Transaction as TransactionInterface;
 
 class SingleStream implements TransactionInterface
 {
-    /**
-     * @var EventStoreInterface
-     */
+    /** @var EventStoreInterface */
     private $eventstore;
 
     /** @var string */
@@ -23,6 +21,7 @@ class SingleStream implements TransactionInterface
     public function __construct(EventStoreInterface $eventstore)
     {
         $this->eventstore = $eventstore;
+        $this->resetTransaction();
     }
 
     public function push($streamUri, array $writeableEvents)
@@ -39,5 +38,13 @@ class SingleStream implements TransactionInterface
     {
         $collection = new WritableEventCollection($this->events);
         $this->eventstore->writeToStream($this->streamUri, $collection);
+
+        $this->resetTransaction();
+    }
+
+    private function resetTransaction()
+    {
+        $this->streamUri = '';
+        $this->events    = [];
     }
 }
