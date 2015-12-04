@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "930697c1710185ebcf6771ce2feb9329",
-    "content-hash": "06fc906f1c3242990226c6a91749d121",
+    "hash": "6366efd4cae6f156ffbba828b3bfb9ee",
+    "content-hash": "fb609d033ac89edf92c6ac6433dd84ce",
     "packages": [
         {
             "name": "dbellettini/eventstore-client",
