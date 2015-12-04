@@ -24,7 +24,7 @@ class None implements TransactionInterface
         $this->eventstore->writeToStream($streamUri, $collection);
     }
 
-    public function flush()
+    public function commit()
     {
         // Doesn't need to do anything
         return null;

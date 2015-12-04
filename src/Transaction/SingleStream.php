@@ -35,7 +35,7 @@ class SingleStream implements TransactionInterface
         $this->events = array_merge($this->events, $writeableEvents);
     }
 
-    public function flush()
+    public function commit()
     {
         $collection = new WritableEventCollection($this->events);
         $this->eventstore->writeToStream($this->streamUri, $collection);

@@ -50,7 +50,7 @@ class SingleStreamTest extends \PHPUnit_Framework_TestCase
         $this->eventstore->shouldReceive('writeToStream')->once()->with('streamUri', m::type(WritableEventCollection::class));
         $this->transaction->push('streamUri', $expectedEvents);
 
-        $this->transaction->flush();
+        $this->transaction->commit();
     }
 
     /**
