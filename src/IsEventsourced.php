@@ -2,7 +2,7 @@
 
 namespace PhpInPractice\Matters\Aggregate;
 
-trait IsEventsourced
+trait IsEventSourced
 {
     /**
      * List of events that are not committed to the EventStore

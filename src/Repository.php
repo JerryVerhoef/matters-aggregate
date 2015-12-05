@@ -39,7 +39,7 @@ final class Repository
     }
 
     /**
-     * @param IsEventsourced|object $aggregateRoot
+     * @param IsEventSourced|object $aggregateRoot
      */
     public function persist($aggregateRoot)
     {
@@ -93,7 +93,7 @@ final class Repository
     }
 
     /**
-     * @param object|IsEventsourced $aggregateRoot
+     * @param object|IsEventSourced $aggregateRoot
      *
      * @return array
      */
