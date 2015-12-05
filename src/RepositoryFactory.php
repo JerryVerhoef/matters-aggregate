@@ -5,7 +5,7 @@ namespace PhpInPractice\Matters\Aggregate;
 use EventStore\EventStoreInterface;
 use PhpInPractice\Matters\Aggregate\EventSerializer\FromArrayToArray;
 use PhpInPractice\Matters\Aggregate\StreamNameGenerator\SluggifiedNameAndId;
-use PhpInPractice\Matters\Transaction\None;
+use PhpInPractice\Matters\Aggregate\Transaction\None;
 
 final class RepositoryFactory
 {
