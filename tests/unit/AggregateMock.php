@@ -4,7 +4,7 @@ namespace PhpInPractice\Matters\Aggregate;
 
 class AggregateMock
 {
-    use isEventSourced;
+    use IsEventSourced;
 
     public function id()
     {
