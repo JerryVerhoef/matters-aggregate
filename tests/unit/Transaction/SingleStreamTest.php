@@ -55,6 +55,21 @@ class SingleStreamTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers ::rollback
+     */
+    public function it_should_clear_events_on_rollback()
+    {
+        $expectedEvents = [new WritableEvent(new UUID(), '123', [])];
+        $this->transaction->push('streamUri', $expectedEvents);
+
+        $this->transaction->rollback();
+
+        $this->assertAttributeCount(0, 'events', $this->transaction);
+        $this->assertAttributeSame('', 'streamUri', $this->transaction);
+    }
+
+    /**
+     * @test
      * @covers ::push
      * @expectedException \PhpInPractice\Matters\Aggregate\Transaction\TransactionLimitedToASingleStreamException
      */

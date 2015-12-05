@@ -38,4 +38,24 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 
         $this->transaction->push('streamUri', $expectedEvents);
     }
+
+    /**
+     * @test
+     * @covers ::commit
+     */
+    public function it_should_do_nothing_on_commit()
+    {
+        $this->eventstore->shouldReceive('writeToStream')->never();
+
+        $this->transaction->commit();
+    }
+
+    /**
+     * @test
+     * @covers ::rollback
+     */
+    public function it_should_do_nothing_on_rollback()
+    {
+        $this->transaction->rollback();
+    }
 }
