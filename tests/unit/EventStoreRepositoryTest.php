@@ -10,11 +10,11 @@ use EventStore\WritableEvent;
 use Mockery as m;
 
 /**
- * @coversDefaultClass PhpInPractice\Matters\Aggregate\Repository
+ * @coversDefaultClass PhpInPractice\Matters\Aggregate\EventStoreRepository
  * @covers ::<private>
  * @covers ::__construct
  */
-class RepositoryTest extends \PHPUnit_Framework_TestCase
+class EventStoreRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     /** @var EventStoreInterface|m\MockInterface */
     private $eventStore;
@@ -38,7 +38,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $this->eventSerializer     = m::mock(EventSerializer::class);
         $this->transaction         = m::mock(Transaction::class);
 
-        $this->repository = new Repository(
+        $this->repository = new EventStoreRepository(
             $this->streamNameGenerator,
             $this->eventSerializer,
             $this->eventStore,

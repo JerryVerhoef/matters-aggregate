@@ -6,11 +6,11 @@ use EventStore\EventStoreInterface;
 use Mockery as m;
 
 /**
- * @coversDefaultClass PhpInPractice\Matters\Aggregate\RepositoryFactory
+ * @coversDefaultClass PhpInPractice\Matters\Aggregate\EventStoreRepositoryFactory
  * @covers ::<private>
  * @covers ::__construct
  */
-class RepositoryFactoryTest extends \PHPUnit_Framework_TestCase
+class EventStoreRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /** @var EventStoreInterface|m\MockInterface */
     private $eventStore;
@@ -34,7 +34,7 @@ class RepositoryFactoryTest extends \PHPUnit_Framework_TestCase
         $this->eventSerializer     = m::mock(EventSerializer::class);
         $this->transaction         = m::mock(Transaction::class);
 
-        $this->factory = new RepositoryFactory(
+        $this->factory = new EventStoreRepositoryFactory(
             $this->eventStore,
             $this->streamNameGenerator,
             $this->eventSerializer,
