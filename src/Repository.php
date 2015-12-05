@@ -100,8 +100,6 @@ final class Repository
     private function getWriteableEventsFromAggregate($aggregateRoot)
     {
         $domainEvents = $aggregateRoot->extractRecordedEvents();
-        if ($domainEvents === []) {
-        }
 
         $eventsArray = [];
         foreach ($domainEvents as $event) {
