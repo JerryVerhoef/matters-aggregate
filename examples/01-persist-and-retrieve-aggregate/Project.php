@@ -1,11 +1,11 @@
 <?php
 
-use PhpInPractice\Matters\Aggregate\IsEventsourced;
+use PhpInPractice\Matters\Aggregate\IsEventSourced;
 use Rhumsaa\Uuid\Uuid;
 
 class Project
 {
-    use IsEventsourced;
+    use IsEventSourced;
 
     private $id;
     private $name;

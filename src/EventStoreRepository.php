@@ -38,7 +38,7 @@ final class EventStoreRepository implements Repository
     }
 
     /**
-     * @param IsEventsourced|object $aggregateRoot
+     * @param IsEventSourced|object $aggregateRoot
      */
     public function persist($aggregateRoot)
     {
@@ -92,15 +92,13 @@ final class EventStoreRepository implements Repository
     }
 
     /**
-     * @param object|IsEventsourced $aggregateRoot
+     * @param object|IsEventSourced $aggregateRoot
      *
      * @return array
      */
     private function getWriteableEventsFromAggregate($aggregateRoot)
     {
         $domainEvents = $aggregateRoot->extractRecordedEvents();
-        if ($domainEvents === []) {
-        }
 
         $eventsArray = [];
         foreach ($domainEvents as $event) {

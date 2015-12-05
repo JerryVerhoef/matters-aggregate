@@ -5,7 +5,7 @@ namespace PhpInPractice\Matters\Aggregate;
 interface Repository
 {
     /**
-     * @param IsEventsourced|object $aggregateRoot
+     * @param IsEventSourced|object $aggregateRoot
      */
     public function persist($aggregateRoot);
 
