@@ -55,6 +55,19 @@ class SingleStreamTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers ::commit
+     * @covers ::push
+     */
+    public function it_should_not_commit_if_there_are_no_events()
+    {
+        $this->eventstore->shouldReceive('writeToStream')->never();
+        $this->transaction->push('streamUri', []);
+
+        $this->transaction->commit();
+    }
+
+    /**
+     * @test
      * @covers ::rollback
      */
     public function it_should_clear_events_on_rollback()
