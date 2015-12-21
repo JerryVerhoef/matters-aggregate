@@ -36,8 +36,12 @@ final class SingleStream implements TransactionInterface
 
     public function commit()
     {
-        $collection = new WritableEventCollection($this->events);
-        $this->eventstore->writeToStream($this->streamUri, $collection);
+        if (count($this->events)) {
+            $this->eventstore->writeToStream(
+                $this->streamUri,
+                new WritableEventCollection($this->events)
+            );
+        }
 
         $this->resetTransaction();
     }
