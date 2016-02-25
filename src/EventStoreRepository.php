@@ -23,18 +23,33 @@ final class EventStoreRepository implements Repository
     /** @var Transaction */
     private $transaction;
 
+    /** @var null|MetadataStore */
+    private $metadataStore;
+
+    /**
+     * EventStoreRepository constructor.
+     *
+     * @param StreamNameGenerator $streamNameGenerator
+     * @param EventSerializer $eventSerializer
+     * @param EventStoreInterface $eventstore
+     * @param Transaction $transaction
+     * @param string $aggregateClassName
+     * @param MetadataStore|null $metadataStore
+     */
     public function __construct(
         StreamNameGenerator $streamNameGenerator,
         EventSerializer $eventSerializer,
         EventStoreInterface $eventstore,
         Transaction $transaction,
-        $aggregateClassName
+        $aggregateClassName,
+        MetadataStore $metadataStore = null
     ) {
         $this->eventstore          = $eventstore;
         $this->aggregateClassName  = $aggregateClassName;
         $this->streamNameGenerator = $streamNameGenerator;
         $this->eventSerializer     = $eventSerializer;
         $this->transaction         = $transaction;
+        $this->metadataStore = $metadataStore;
     }
 
     /**
@@ -102,9 +117,15 @@ final class EventStoreRepository implements Repository
 
         $eventsArray = [];
         foreach ($domainEvents as $event) {
+            $metadata = [];
+            if ($this->metadataStore) {
+                $metadata = $this->metadataStore->metadata($event);
+            }
+
             $eventsArray[] = WritableEvent::newInstance(
                 get_class($event),
-                $this->eventSerializer->serialize($event)
+                $this->eventSerializer->serialize($event),
+                $metadata
             );
         }
 
