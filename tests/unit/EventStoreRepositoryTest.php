@@ -16,6 +16,9 @@ use Mockery as m;
  */
 class EventStoreRepositoryTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var MetadataStore|m\MockInterface */
+    private $metadataStore;
+
     /** @var EventStoreInterface|m\MockInterface */
     private $eventStore;
 
@@ -37,13 +40,15 @@ class EventStoreRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->streamNameGenerator = m::mock(StreamNameGenerator::class);
         $this->eventSerializer     = m::mock(EventSerializer::class);
         $this->transaction         = m::mock(Transaction::class);
+        $this->metadataStore       = m::mock(MetadataStore::class);
 
         $this->repository = new EventStoreRepository(
             $this->streamNameGenerator,
             $this->eventSerializer,
             $this->eventStore,
             $this->transaction,
-            AggregateMock::class
+            AggregateMock::class,
+            $this->metadataStore
         );
     }
 
@@ -71,9 +76,13 @@ class EventStoreRepositoryTest extends \PHPUnit_Framework_TestCase
                     $data = $event->toStreamData();
                     $this->assertSame(get_class($exampleEvent), $data['eventType']);
                     $this->assertSame(['id' => 2], $data['data']);
+                    $this->assertSame(['user_id' => 1], $data['metadata']);
                     return true;
                 })
             );
+
+        $this->metadataStore->shouldReceive('metadata')
+            ->with($exampleEvent)->andReturn(['user_id' => 1]);
 
         $this->repository->persist($aggregate);
     }

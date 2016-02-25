@@ -21,16 +21,21 @@ final class EventStoreRepositoryFactory implements RepositoryFactory
     /** @var Transaction */
     private $transaction;
 
+    /** @var MetadataStore */
+    private $metadataStore;
+
     public function __construct(
         EventStoreInterface $eventStore,
         StreamNameGenerator $streamNameGenerator = null,
         EventSerializer $eventSerializer = null,
-        Transaction $transaction = null
+        Transaction $transaction = null,
+        MetadataStore $metadataStore = null
     ) {
         $this->streamNameGenerator = $streamNameGenerator ?: new SluggifiedNameAndId();
         $this->eventSerializer = $eventSerializer ?: new FromArrayToArray();
         $this->eventStore = $eventStore;
         $this->transaction = $transaction ?: new None($eventStore);
+        $this->metadataStore = $metadataStore;
     }
 
     /**
@@ -44,7 +49,8 @@ final class EventStoreRepositoryFactory implements RepositoryFactory
             $this->eventSerializer,
             $this->eventStore,
             $this->transaction,
-            $aggregateType
+            $aggregateType,
+            $this->metadataStore
         );
     }
 }
