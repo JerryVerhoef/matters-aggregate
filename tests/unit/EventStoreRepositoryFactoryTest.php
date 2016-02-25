@@ -12,6 +12,7 @@ use Mockery as m;
  */
 class EventStoreRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    private $metadataStore;
     /** @var EventStoreInterface|m\MockInterface */
     private $eventStore;
 
@@ -33,12 +34,14 @@ class EventStoreRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
         $this->streamNameGenerator = m::mock(StreamNameGenerator::class);
         $this->eventSerializer     = m::mock(EventSerializer::class);
         $this->transaction         = m::mock(Transaction::class);
+        $this->metadataStore       = m::mock(MetadataStore::class);
 
         $this->factory = new EventStoreRepositoryFactory(
             $this->eventStore,
             $this->streamNameGenerator,
             $this->eventSerializer,
-            $this->transaction
+            $this->transaction,
+            $this->metadataStore
         );
     }
 
@@ -55,6 +58,7 @@ class EventStoreRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($this->eventStore, 'eventstore', $repository);
         $this->assertAttributeSame($this->transaction, 'transaction', $repository);
         $this->assertAttributeSame($this->eventSerializer, 'eventSerializer', $repository);
+        $this->assertAttributeSame($this->metadataStore, 'metadataStore', $repository);
         $this->assertAttributeSame($expected, 'aggregateClassName', $repository);
     }
 }
