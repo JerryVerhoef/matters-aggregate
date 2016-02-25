@@ -16,7 +16,9 @@ use Mockery as m;
  */
 class EventStoreRepositoryTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var MetadataStore|m\MockInterface */
     private $metadataStore;
+
     /** @var EventStoreInterface|m\MockInterface */
     private $eventStore;
 
