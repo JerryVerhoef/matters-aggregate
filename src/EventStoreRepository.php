@@ -49,7 +49,7 @@ final class EventStoreRepository implements Repository
         $this->streamNameGenerator = $streamNameGenerator;
         $this->eventSerializer     = $eventSerializer;
         $this->transaction         = $transaction;
-        $this->metadataStore = $metadataStore;
+        $this->metadataStore       = $metadataStore;
     }
 
     /**
